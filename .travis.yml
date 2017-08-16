@@ -15,7 +15,8 @@ node_js:
 
 cache:
   directories:
-    - node_modules
+    - web/node_modules
+    - electron/node_modules
 
 addons:
   apt:
@@ -29,6 +30,7 @@ addons:
       - xz-utils
       - xorriso
       - xvfb
+      - fackroot
 
 install:
   - nvm install 6
