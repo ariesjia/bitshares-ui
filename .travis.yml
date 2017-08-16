@@ -1,17 +1,14 @@
-sudo: required
+osx_image: xcode8.3
+
 dist: trusty
+sudo: false
 
-language: c
+language: node_js
+node_js: "6"
 
-matrix:
-  include:
-    - os: osx
-    - os: linux
-      env: CC=clang CXX=clang++ npm_config_clang=1
-      compiler: clang
-
-node_js:
-  - 6
+os:
+  - linux
+  - osx
 
 cache:
   directories:
@@ -20,17 +17,9 @@ cache:
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-      - icnsutils
-      - graphicsmagick
-      - libgnome-keyring-dev
-      - xz-utils
-      - xorriso
-      - xvfb
-      - fackroot
+      - libsecret-1-0
+
 
 install:
   - nvm install 6
@@ -54,3 +43,12 @@ script:
   - npm run postelectron
   - cd ../electron
   - npm run release
+  - cd ../
+
+deploy:
+  provider: bitballoon
+  site-id:
+    secure: "censor-beaver-60124"
+  access-token:
+    secure: "4cd1bafba705679dd03e76f4e2a1a8e75eb4d8d56966fed41819c3a4793c3251"
+  local-dir: "electron/releases/"
